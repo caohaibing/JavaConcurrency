@@ -1,4 +1,4 @@
-package cn.edu.cn.semaphore;
+package cn.edu.nju.semaphore;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
