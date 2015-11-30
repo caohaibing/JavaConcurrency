@@ -1,7 +1,7 @@
 package cn.edu.nju.handledate;
 
 import java.util.List;
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -13,19 +13,22 @@ import java.util.concurrent.locks.ReentrantLock;
  *     
  */
 public class FileFactory {
-	private volatile List<String> filePaths = new Vector<String>();
-	private volatile List<String> fileNames = new Vector<String>();
-	private Lock lock = new ReentrantLock();
-	private volatile boolean isExit = false;
+	//	private List<String> filePaths = new Vector<String>();
+	//	private List<String> fileNames = new Vector<String>();
+	private List<String> filePaths = new CopyOnWriteArrayList<String>();
+	private List<String> fileNames = new CopyOnWriteArrayList<String>();
+
+	private Lock lock = new ReentrantLock(); //可重入锁
+	private volatile boolean isExit = false; //当集合中没有元素时，要结束线程
 
 	public FileFactory() {
 		String[] p = new ConcurrentUtils().getPaths();
 		String[] n = new ConcurrentUtils().getName();
-		if (p == null || p.length <= 0 || n == null || n.length <= 0){
+		if (p == null || p.length <= 0 || n == null || n.length <= 0) {
 			System.out.println("没有数据");
 			System.exit(0);
 		}
-		
+
 		for (int i = 0; i < p.length && p[i] != null; i++) {
 			filePaths.add(p[i]);
 			fileNames.add(n[i]);

@@ -47,9 +47,11 @@ public class DateReplacement implements Runnable {
 				this.writeWord(path, name);
 
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Thread.currentThread().getName() + " 线程执行完毕！");
 	}
 
 	/**    
